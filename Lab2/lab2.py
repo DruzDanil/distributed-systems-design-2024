@@ -1,18 +1,18 @@
 from hazelcast.client import HazelcastClient
 import random
-
+import time
 # import hazelcast.config
 # Создаем конфигурацию клиента Hazelcast и добавляем адреса всех узлов кластера
 config = {
     "cluster_name": "dev",
-    "cluster_members": ["172.17.0.2:5701", "172.17.0.3:5701", "172.17.0.4:5701"]
+    "cluster_members": ["172.17.0.1:5701", "172.17.0.1:5702", "172.17.0.1:5703"]
 }
 # config = hazelcast.config.Config()
 # config.cluster_name = "my-cluster"
 # config._cluster_members = ["172.17.0.2:5701", "172.17.0.3:5701", "172.17.0.4:5701"]
 # config.connection_timeout = 5
 # Создаем экземпляр клиента Hazelcast
-client = HazelcastClient(cluster_name = "dev", cluster_members = ["172.17.0.2:5701"], use_public_ip=True)
+client = HazelcastClient(cluster_name="dev")
 # Печатаем информацию о кластере
 cluster = client.cluster_service
 print("Cluster Members:")
@@ -39,14 +39,16 @@ def task4():
 
 # Task 5
 def task5():
-    queue = client.get_queue("my_queue").blocking()
+    queue = client.get_queue("default").blocking()
 
     for i in range(1, 101):
-        queue.offer(i)
+        queue.offer(i, 10)
+        # time.sleep(1)
+        
 
-task3()
+# task3()
 # task4()
-# task5()
+task5()
 # Когда закончите работу с кластером, не забудьте закрыть клиента
 client.shutdown()
 
