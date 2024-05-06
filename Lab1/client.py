@@ -9,5 +9,3 @@ print('POST відповідь:', response_post.text)
 # Відправка GET запиту
 response_get = requests.get('http://127.0.0.1:5000/data')
 print('GET відповідь:', response_get.json())
-
-
