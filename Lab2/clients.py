@@ -1,6 +1,5 @@
 from hazelcast.client import HazelcastClient
 
-
 client = HazelcastClient(cluster_name='dev')
 
 # Task 4
@@ -31,7 +30,7 @@ def read_from_queue():
 def task5():
     read_from_queue()
 
-#task4()
+task4()
 task5()
 
 client.shutdown()
